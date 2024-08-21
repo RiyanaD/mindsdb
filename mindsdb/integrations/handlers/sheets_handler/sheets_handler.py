@@ -15,6 +15,7 @@ from mindsdb.integrations.libs.response import (
     RESPONSE_TYPE
 )
 
+from mindsdb.integrations.handlers.sheets_handler.sheets_tables import SheetsTable
 
 logger = log.getLogger(__name__)
 
@@ -39,6 +40,9 @@ class SheetsHandler(DatabaseHandler):
         self.dialect = 'sheets'
         self.connection_data = connection_data
         self.kwargs = kwargs
+
+        sheets_table = SheetsTable(self) 
+        self._register_table('sheets_table', sheets_table)
 
         self.connection = None
         self.is_connected = False
